@@ -7,7 +7,28 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## Projeto Api com Laravel 11:
+## Sobre o projeto
+Este projeto é uma API desenvolvida com Laravel 11, focada em um CRUD (Create, Read, Update, Delete). Ele tem como objetivo demonstrar minhas habilidades com o Laravel e o desenvolvimento de APIs RESTful.
+
+Atualmente, o projeto não possui funcionalidades avançadas, como autenticação ou controle de permissões, pois o foco é na simplicidade e nas operações CRUD.
+
+Caso queira ver projetos mais avançados fique de olho no meu repositório ou entre em contato: <a>https://github.com/mcarina?tab=repositories</a>
+
+### Funcionalidades:
+- Criação de usuários (Create);
+- Listar usuários (Read);
+- Atualização (Update);
+- Exclusão(Delete).
+
+### Tecnologias Utilizadas:
+- PHP 8.2;
+- Laravel 11;
+- PostgreSQL;
+- Docker;
+- Documentação de endpoints com Swagger.
+
+
+## Instruções de Instalação:
 - Com docker.
 1. ```
    sudo docker-compose up --build -d
