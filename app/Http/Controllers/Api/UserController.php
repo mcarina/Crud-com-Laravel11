@@ -8,10 +8,18 @@ use App\Http\Controllers\Controller;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use App\Http\Requests\UserRequest;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+
+/**
+ * @OA\Info(
+ *     title="API",
+ *     version="1.0",
+ *     description="Api/swagger.json"
+ * )
+ * 
+ */
 
 class UserController extends Controller
 {
@@ -32,10 +40,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Lista de usuários retornada com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
+     *     )
      * )
      *
      * Método que retorna uma lista de usuários ordenados por ID em ordem crescente, com paginação.
@@ -71,10 +76,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=200,
      *         description="Detalhes do usuário retornados com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
+     *     )
      * )
      * Método que retorna detalhes do usuário, por ID.
      *
@@ -103,10 +105,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=201,
      *         description="Usuário cadastrado com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
+     *     )
      * )
      *
      * Método que permite criar novos usuários.
@@ -114,7 +113,7 @@ class UserController extends Controller
      * @param \App\Http\Requests\UserRequest $request
      * @return JsonResponse
      */
-    public function store(UserRequest $request): JsonResponse
+    public function store(Request $request): JsonResponse
     {
         DB::beginTransaction();// Iniciando transação
 
@@ -172,10 +171,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=201,
      *         description="Campos atualizados com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
+     *     )
      * )
      *
      * Método que atualiza os dados de um usuário.
@@ -274,10 +270,7 @@ class UserController extends Controller
      *     @OA\Response(
      *         response=201,
      *         description="Usuário deletado com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
+     *     )
      * )
      *
      * Método que deleta um usuário.
