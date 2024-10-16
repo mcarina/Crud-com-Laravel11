@@ -17,18 +17,11 @@ return Application::configure(basePath: dirname(__DIR__))
             'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
             'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
-            'RestrictAdmin' => \App\Http\Middleware\RestrictAdmin::class,
-            'RestrictPermissions' => \App\Http\Middleware\RestrictPermissions::class,
-            'RestrictAdminSecret' => \App\Http\Middleware\RestrictAdminSecret::class,
+
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
 
-        $exceptions->render(function(AuthenticationException $e){
-            return response()->json([
-                'status'=>false,
-                'message'=>"Token inválido"
-            ],400);
-        });
+
 
     })->create();

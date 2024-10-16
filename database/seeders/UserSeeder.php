@@ -13,11 +13,10 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        if(!User::where('email', 'user@seduc.net')->first()){
+        if(!User::where('email', 'user@email.net')->first()){
             User::create([
                 'name'=>'user',
-                'email'=>'user@seduc.net',
-                'admin' => 1,
+                'email'=>'user@email.net',
                 'password'=> Hash::make('senha', ['rounds'=>12]),
             ]);
         }

@@ -21,14 +21,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'admin',
-        'assessor',
-        'p_escola',
-        'coordenador',
-        'coord_nig',
-        'secretaria',
-        'escola',
-        'assessor_id',
     ];
 
     /**

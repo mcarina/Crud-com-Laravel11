@@ -21,7 +21,7 @@ services:
     container_name: nginx
     restart: always
     ports:
-      - "81:81"
+      - "70:70"
     volumes:
       - ./:/var/www/
       - ./docker/nginx/:/etc/nginx/conf.d/
@@ -33,7 +33,7 @@ services:
     container_name: pgsql
     restart: always
     ports:
-      - "5431:5432"
+      - "5420:5432"
     volumes:
       - ./.docker/postgresql:/var/lib/postgresql/data
     environment:
@@ -43,48 +43,9 @@ services:
     networks:
       - docker-laravel
 
-  # pgadmin:
-  #   depends_on:
-  #     - pgsql
-  #   image: dpage/pgadmin4
-  #   container_name: pgadmin
-  #   restart: always
-  #   ports:
-  #     - "8080:80"
-  #   environment:
-  #     PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
-  #     PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
-  #   networks:
-  #     - docker-laravel
-
-  # minio:
-  #   image: minio/minio
-  #   container_name: minio
-  #   command: server /data --console-address ":9701"
-  #   restart: always
-  #   environment:
-  #     MINIO_ROOT_USER: minioadmin
-  #     MINIO_ROOT_PASSWORD: minioadmin
-  #   volumes:
-  #     - ./minio_data:/data
-  #   ports:
-  #     - "9700:9700"
-  #     - "9701:9701"
-  #   networks:
-  #     - docker-laravel
-
-  redis:
-    image: redis:latest
-    container_name: redis
-    restart: always
-    ports:
-      - "6377:6379"
-    networks:
-      - docker-laravel
-
 networks:
   docker-laravel:
     ipam:
       driver: default
       config:
-        - subnet: "172.16.238.0/24"
+        - subnet: "192.168.0.0/24"

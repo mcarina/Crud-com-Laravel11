@@ -88,15 +88,6 @@ class UserController extends Controller
         ], 200);
     }
 
-    public function showInfo(User $user): JsonResponse
-    {
-        $user = Auth::user();
-
-        return response()->json([
-            'status' => true,
-            'user' => $user,
-        ], 200);
-    }
     /**
      * @OA\Post(
      *     path="/api/users",
@@ -315,105 +306,6 @@ class UserController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => "Falha ao apagar usuário",
-            ], 400);
-        }
-    }
-
-    /**
-     * @OA\Post(
-     *     path="/api/import-users",
-     *     summary="Importa usuários a partir de um arquivo CSV (Admin)",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\MediaType(
-     *             mediaType="multipart/form-data",
-     *             @OA\Schema(
-     *                 type="object",
-     *                 @OA\Property(
-     *                     property="file",
-     *                     description="Arquivo CSV contendo dados dos usuários",
-     *                     type="string",
-     *                     format="binary",
-     *                     example="file.csv"
-     *                 )
-     *             )
-     *         )
-     *     ),
-     *     @OA\Response(
-     *         response=201,
-     *         description="Usuários importados com sucesso"
-     *     ),
-     *     security={
-     *         {"bearerAuth": {}}
-     *     }
-     * )
-     *
-     * Método que importa usuários usando um arquivo CSV.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return JsonResponse
-     */
-    public function import(Request $request): JsonResponse
-    {
-
-        try {
-
-            $request->validate([ //validar o arquivo
-                'file' => 'required|mimes:csv,txt|max:2048',
-        ], [
-
-            'file.required' => "Selecione um arquivo!",
-            'file.mimes' => "Escolha um arquivo csv ou txt",
-            'file.max' => "Tamanho máximo permitido, de arquivo permitido, de :max Mb"
-
-        ]);
-
-            $headers = ['name', 'email', 'password']; // Criar um array com as colunas no banco de dados
-            $datafile = array_map('str_getcsv', file( $request -> file('file')));// Receber o arquivo, ler os dados e converter as strings em array
-
-            $numberRegisteredRecords = 0;
-            $emailAlreadyRegistered = false;
-            $arrayvalues = [];
-
-            foreach ($datafile as $keyData => $row) {
-
-                $values = explode(';', $row[0]); // Converte a linha em array
-
-                foreach ($headers as $key => $header) { // percorre as colunas do cabeçalho
-
-                    if ($header == 'email') {
-                        if ( User::where('email', $values[$key]) -> first() ) { //verifica se o email ja existe no banco de dados
-                            $emailAlreadyRegistered[] = $values[$key];
-                        }
-                    }
-
-                    if ($header == 'password') { // Verifica a coluna password
-                        $arrayvalues[$keyData][$header] = Hash::make($values[$key], ['rounds' => 12]); // Criptografa a senha
-                    }  else {
-                        $arrayvalues[$keyData][$header] = $values[$key];   //atribuir o valor ao elemento do array
-                    }
-
-                } $numberRegisteredRecords++;
-            }
-
-            // Se houver emails já registrados, retorna a mensagem de erro
-            if ($emailAlreadyRegistered) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'E-mail(s) já cadastrado(s): ' . implode(', ', $emailAlreadyRegistered)
-                ], 400);
-            }
-
-            User::insert($arrayvalues);
-
-            return response()->json([
-                'message' => "enviado com sucesso!",
-            ], 201);
-
-        } catch (Exception $e) {
-            return response()->json([
-                'status' => false,
-                'message' => "Erro de importação: " . $e->getMessage(),
             ], 400);
         }
     }
