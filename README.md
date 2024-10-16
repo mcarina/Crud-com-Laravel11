@@ -50,9 +50,7 @@ Caso queira ver projetos mais avançados fique de olho no meu repositório ou en
    ```
 6. Acessar as rotas;
 
-8. Fazer o login com os dados presentes no seed (caminho: database/seeders/UserSeeder.php);
-
-9. Finalizado, caso ocorra tudo bem, já pode acessar as rotas sem problemas.
+7. Finalizado, caso ocorra tudo bem, já pode acessar as rotas sem problemas.
 
 > [!NOTE]
 > Não esqueça de configurar seu arquivo .env e criar seu app_key
